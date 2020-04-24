@@ -1,0 +1,45 @@
+#Factory Default Configuration
+[edit]
+user@switch# load factory-default
+[edit]
+user@switch# delete system commit factory-settings
+[edit]
+user@switch# commit
+
+To load the factory default :
+# load factort-default
+#set system root-auth plain-text-password  |( then press enter & give the password fopr the root account )
+# commit
+
+Execute the following commands:
+
+lab@EX2200> request system configuration rescue delete
+lab@EX2200> start shell user root
+Password:
+root@EX2200% cd /config
+root@EX2200% rm -rf juniper.conf*
+root@EX2200% cd /config/db/config
+root@EX2200% rm -rf juniper.conf.*
+root@EX2200% reboot
+Or
+Reformat
+Install using TFTP or external USB from loader prompt:
+Example: loader> install --format source
+
+Reset Password
+1. When the following prompt appears, press the Spacebar to access the switch's bootstrap loader command prompt:
+Hit [Enter] to boot immediately, or space bar for command prompt.
+Booting [kernel] in 1 second...
+2. At the following prompt, type boot -s to start up the system in single-user mode:
+loader> boot -s
+3. At the following prompt, type recovery to start the root password recovery procedure:
+Enter the full pathname of the shell or recovery for root password recovery or RETURN for /bin/sh: recovery.
+A series of messages describe consistency checks, mounting of filesystems, and initialization and checkout of management services. Then the Command Line Interface (CLI) prompt appears.
+4. Enter configuration mode in the CLI:
+user@switch> configure
+ser@switch# set system root-authentication plain-text-password
+root@switch# commit
+root@switch# exit
+root@switch> exit
+At the prompt, enter y to reboot the switch.
+Reboot the system? [y/n] y
